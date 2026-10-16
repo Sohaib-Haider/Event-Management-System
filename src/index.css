@@ -44,3 +44,34 @@ main {
 h2 {
   margin-top: 0;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 360px;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  font: inherit;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  min-width: 0;
+}
+
+button {
+  padding: 8px 14px;
+  font: inherit;
+  color: #fff;
+  background-color: #2459a6;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error {
+  color: #b00020;
+  margin: 0;
+}
