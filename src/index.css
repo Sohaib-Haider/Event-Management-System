@@ -1,8 +1,46 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  color: #222;
+  background-color: #f5f5f5;
+}
+
+header {
+  padding: 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+h1 {
+  margin: 0 0 20px;
+  font-size: 26px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+a {
+  color: #2459a6;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a.active {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 main {
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 20px;
+}
+
+h2 {
+  margin-top: 0;
 }
