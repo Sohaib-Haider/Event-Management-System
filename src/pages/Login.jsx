@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { loginUser, clearError } from '../redux/authSlice.js'
 
 function Login() {
@@ -9,6 +9,8 @@ function Login() {
   const { currentUser, error } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
+  const nextPage = location.state?.from || '/'
 
   useEffect(() => {
     dispatch(clearError())
@@ -16,9 +18,9 @@ function Login() {
 
   useEffect(() => {
     if (currentUser) {
-      navigate('/')
+      navigate(nextPage, { replace: true })
     }
-  }, [currentUser, navigate])
+  }, [currentUser, navigate, nextPage])
 
   function handleSubmit(event) {
     event.preventDefault()

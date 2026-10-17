@@ -1,12 +1,27 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { fetchEventDetails } from '../redux/eventsSlice.js'
+import { registerForEvent } from '../redux/registrationsSlice.js'
 
 function EventDetails() {
   const { eventId } = useParams()
   const { selectedEvent: event, detailsLoading, detailsError } = useSelector((state) => state.events)
+  const currentUser = useSelector((state) => state.auth.currentUser)
+  const registrations = useSelector((state) => state.registrations.registrations)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const alreadyRegistered = registrations.some((registration) => registration.userEmail === currentUser?.email && registration.event.id === eventId)
+
+  function handleRegistration() {
+    if (!currentUser) {
+      navigate('/login', { state: { from: '/events/' + eventId } })
+      return
+    }
+
+    dispatch(registerForEvent(event))
+  }
 
   useEffect(() => {
     dispatch(fetchEventDetails(eventId))
@@ -36,6 +51,11 @@ function EventDetails() {
           <p><strong>Venue:</strong> {venue?.name || 'To be announced'}</p>
           <p><strong>Location:</strong> {location || 'To be announced'}</p>
           <p><strong>Category:</strong> {category || 'Not specified'}</p>
+
+          <button type="button" onClick={handleRegistration} disabled={alreadyRegistered}>
+            {alreadyRegistered ? 'Registered' : 'Register for event'}
+          </button>
+          {alreadyRegistered && <p role="status">You are registered for this event.</p>}
 
           {event.info && <p>{event.info}</p>}
           {event.pleaseNote && <p><strong>Please note:</strong> {event.pleaseNote}</p>}
