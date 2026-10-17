@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-export const fetchEvents = createAsyncThunk('events/fetchEvents', async (_, { rejectWithValue }) => {
+export const fetchEvents = createAsyncThunk('events/fetchEvents', async (filters = {}, { rejectWithValue }) => {
   const apiKey = import.meta.env.VITE_TICKETMASTER_API_KEY
 
   if (!apiKey) {
@@ -13,6 +13,25 @@ export const fetchEvents = createAsyncThunk('events/fetchEvents', async (_, { re
     sort: 'date,asc',
     startDateTime: new Date().toISOString().split('.')[0] + 'Z',
   })
+
+  if (filters.keyword?.trim()) {
+    parameters.set('keyword', filters.keyword.trim())
+  }
+
+  if (filters.category) {
+    parameters.set('segmentName', filters.category)
+  }
+
+  if (filters.startDate) {
+    const selectedDate = new Date(filters.startDate + 'T00:00:00')
+    const startDate = new Date(Math.max(selectedDate.getTime(), Date.now()))
+    parameters.set('startDateTime', startDate.toISOString().split('.')[0] + 'Z')
+  }
+
+  if (filters.endDate) {
+    const endDate = new Date(filters.endDate + 'T23:59:59')
+    parameters.set('endDateTime', endDate.toISOString().split('.')[0] + 'Z')
+  }
 
   try {
     const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?${parameters}`)

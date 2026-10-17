@@ -53,7 +53,8 @@ form {
   margin-bottom: 20px;
 }
 
-input {
+input,
+select {
   padding: 10px;
   font: inherit;
   border: 1px solid #aaa;
@@ -102,4 +103,9 @@ button {
 
 .event-card h3 {
   margin-top: 0;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
