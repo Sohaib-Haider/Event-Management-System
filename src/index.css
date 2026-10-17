@@ -109,3 +109,14 @@ button:disabled {
   opacity: 0.6;
   cursor: default;
 }
+
+.event-details h2 {
+  margin-top: 20px;
+}
+
+.event-details img {
+  display: block;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+}
