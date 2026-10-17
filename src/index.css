@@ -75,3 +75,31 @@ button {
   color: #b00020;
   margin: 0;
 }
+
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.event-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.event-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.event-card-content {
+  padding: 16px;
+}
+
+.event-card h3 {
+  margin-top: 0;
+}

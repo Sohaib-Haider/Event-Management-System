@@ -27,3 +27,13 @@ npm run build
 ```
 
 Do not commit API keys or `.env` files.
+
+## Ticketmaster API setup
+
+Create a local `.env` file in the project folder and add your Ticketmaster API key:
+
+```text
+VITE_TICKETMASTER_API_KEY=your_api_key_here
+```
+
+Get your key from https://developer.ticketmaster.com/ and restart the development server after adding it. The `.env` file is ignored by Git.
