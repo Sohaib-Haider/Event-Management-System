@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function EventCard({ event }) {
+function EventCard({ event, children }) {
   const image = event.images?.[0]
   const venue = event._embedded?.venues?.[0]
   const date = event.dates?.start?.localDate
@@ -16,6 +16,7 @@ function EventCard({ event }) {
         {venue?.city?.name && <p>{venue.city.name}</p>}
 
         <Link to={`/events/${event.id}`}>View details</Link>
+        {children}
       </div>
     </article>
   )
