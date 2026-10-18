@@ -5,7 +5,11 @@ export function isEventCompleted(event) {
     return false
   }
 
-  if (start.dateTime) {
+  if (event.dates?.end?.dateTime) {
+    return new Date(event.dates.end.dateTime).getTime() < Date.now()
+  }
+
+  if (start.dateTime && !start.timeTBA) {
     return new Date(start.dateTime).getTime() < Date.now()
   }
 

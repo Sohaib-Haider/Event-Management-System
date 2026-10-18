@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { fetchEventDetails } from '../redux/eventsSlice.js'
 import { registerForEvent } from '../redux/registrationsSlice.js'
+import { isEventCompleted } from '../utils/isEventCompleted.js'
 
 function EventDetails() {
   const { eventId } = useParams()
@@ -26,6 +27,8 @@ function EventDetails() {
   useEffect(() => {
     dispatch(fetchEventDetails(eventId))
   }, [dispatch, eventId])
+
+  const completed = event ? isEventCompleted(event) : false
 
   const venue = event?._embedded?.venues?.[0]
   const image = event?.images?.[0]
@@ -52,8 +55,8 @@ function EventDetails() {
           <p><strong>Location:</strong> {location || 'To be announced'}</p>
           <p><strong>Category:</strong> {category || 'Not specified'}</p>
 
-          <button type="button" onClick={handleRegistration} disabled={alreadyRegistered}>
-            {alreadyRegistered ? 'Registered' : 'Register for event'}
+          <button type="button" onClick={handleRegistration} disabled={alreadyRegistered || completed}>
+            {completed ? 'Event completed' : alreadyRegistered ? 'Registered' : 'Register for event'}
           </button>
           {alreadyRegistered && <p role="status">You are registered for this event.</p>}
 

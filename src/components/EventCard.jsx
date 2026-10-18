@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 function EventCard({ event, children }) {
   const image = event.images?.[0]
   const venue = event._embedded?.venues?.[0]
-  const date = event.dates?.start?.localDate
+  const start = event.dates?.start
+  const date = start?.dateTBA || start?.dateTBD ? null : start?.localDate
 
   return (
     <article className="event-card">

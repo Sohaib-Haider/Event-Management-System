@@ -40,7 +40,7 @@ export function registerForEvent(event) {
   return (dispatch, getState) => {
     const currentUser = getState().auth.currentUser
 
-    if (!currentUser || !event?.id) {
+    if (!currentUser || !event?.id || isEventCompleted(event)) {
       return
     }
 
